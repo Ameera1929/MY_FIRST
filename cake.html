@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>A Wish From My Heart 🎂</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:radial-gradient(circle at top,#1e293b,#020617);
+  font-family:'Inter',sans-serif;
+  color:#fff;
+  overflow:hidden;
+}
+
+/* floating lights */
+.light{
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:#fde68a;
+  border-radius:50%;
+  opacity:.4;
+  animation:float 6s infinite ease-in-out;
+}
+
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-120px)}
+  100%{transform:translateY(0)}
+}
+
+/* container */
+.container{
+  text-align:center;
+  position:relative;
+}
+
+/* cake */
+.cake{
+  position:relative;
+  margin:auto;
+}
+
+/* layers */
+.layer{
+  height:60px;
+  border-radius:12px;
+  margin:auto;
+  opacity:0;
+  animation:drop 1s ease forwards;
+}
+
+.top{
+  width:140px;
+  background:#fda4af;
+  animation-delay:.3s;
+}
+.middle{
+  width:200px;
+  background:#fb7185;
+  animation-delay:.6s;
+}
+.bottom{
+  width:260px;
+  background:#f43f5e;
+  animation-delay:.9s;
+}
+
+@keyframes drop{
+  from{transform:translateY(-200px);opacity:0}
+  to{transform:translateY(0);opacity:1}
+}
+
+/* PERFECT CENTER CANDLES */
+.candles{
+  position:absolute;
+  top:-35px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:12px;
+  justify-content:center;
+}
+
+.candle{
+  width:10px;
+  height:35px;
+  background:#fff;
+  position:relative;
+}
+
+/* flame */
+.candle::after{
+  content:"";
+  position:absolute;
+  top:-10px;
+  left:50%;
+  transform:translateX(-50%);
+  width:8px;
+  height:12px;
+  background:orange;
+  border-radius:50%;
+  animation:flicker .3s infinite alternate;
+}
+
+.candle.off::after{
+  display:none;
+}
+
+@keyframes flicker{
+  from{opacity:.6}
+  to{opacity:1}
+}
+
+/* buttons */
+.buttons{
+  margin-top:26px;
+  display:flex;
+  gap:18px;
+  justify-content:center;
+}
+
+button{
+  padding:12px 30px;
+  border-radius:28px;
+  border:1px solid rgba(255,255,255,.35);
+  background:rgba(255,255,255,.15);
+  color:#fff;
+  cursor:pointer;
+}
+
+/* input */
+#wishBox{
+  display:none;
+  margin-top:20px;
+}
+
+#wishInput{
+  padding:10px;
+  border-radius:20px;
+  border:none;
+  width:220px;
+}
+
+/* side popup */
+#popup{
+  display:none;
+  position:fixed;
+  right:30px;
+  top:50%;
+  transform:translateY(-50%);
+  background:#020617;
+  padding:20px 25px;
+  border-radius:14px;
+  box-shadow:0 10px 40px rgba(0,0,0,.6);
+}
+</style>
+
+</head>
+
+<body>
+
+<script>
+for(let i=0;i<25;i++){
+  const l=document.createElement("div");
+  l.className="light";
+  l.style.left=Math.random()*100+"%";
+  l.style.top=Math.random()*100+"%";
+  l.style.animationDelay=Math.random()*6+"s";
+  document.body.appendChild(l);
+}
+</script>
+
+<div class="container">
+
+  <div class="cake">
+
+```
+<!-- candles ABOVE TOP LAYER -->
+<div class="candles" id="candles">
+  <div class="candle"></div>
+  <div class="candle"></div>
+  <div class="candle"></div>
+</div>
+
+<!-- layers -->
+<div class="layer top"></div>
+<div class="layer middle"></div>
+<div class="layer bottom"></div>
+```
+
+  </div>
+
+  <!-- blow -->
+
+<button onclick="blowCandles()">💨 Blow</button>
+
+  <!-- input -->
+
+  <div id="wishBox">
+    <input type="text" id="wishInput" placeholder="Type your wish...">
+    <br><br>
+    <button onclick="makeWish()">Done✨</button>
+  </div>
+
+  <!-- navigation -->
+
+  <div class="buttons">
+    <button onclick="goBack()">⬅ Back</button>
+    <button onclick="goGift()">Next ➡</button>
+  </div>
+
+</div>
+
+<!-- popup -->
+
+<div id="popup">
+  Your wish has come true ✨
+</div>
+
+<script>
+function blowCandles(){
+  document.querySelectorAll(".candle").forEach(c=>{
+    c.classList.add("off");
+  });
+  document.getElementById("wishBox").style.display="block";
+}
+
+function makeWish(){
+  const wish=document.getElementById("wishInput").value;
+
+  if(wish.trim()!==""){
+    document.getElementById("wishBox").innerHTML =
+      "<p style='font-size:18px;color:#fde68a;'>✨ Your wish has come true ✨</p>";
+  }
+}
+
+function goGift(){location.href="gift.html";}
+function goBack(){location.href="envelope.html";}
+</script>
+
+</body>
+</html>
